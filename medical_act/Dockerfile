@@ -13,13 +13,12 @@ EXPOSE 50051
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     apk add --update --no-cache \
-        build-base \
-        g++ \
         gcc \
-        libc-dev \
-        linux-headers \
-        libffi-dev && \
-    /py/bin/pip install -r /tmp/requirements.txt && \
+        musl-dev \
+        libffi-dev \
+        openssl-dev && \
+    /py/bin/pip install --no-cache-dir -r /tmp/requirements.txt && \
+    apk del gcc musl-dev libffi-dev openssl-dev && \
     rm -Rf /tmp && \
     adduser \
         --disabled-password \
