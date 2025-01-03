@@ -32,6 +32,13 @@ ingress_https = aws.ec2.SecurityGroupIngressArgs(
     cidr_blocks=['129.222.91.74/32']
 )
 
+ingress_grpc = aws.ec2.SecurityGroupIngressArgs(
+    protocol="tcp",
+    from_port=50051,
+    to_port=50051,
+    cidr_blocks=["129.222.91.74/32"],
+)
+
 egress_all = aws.ec2.SecurityGroupEgressArgs(
     protocol="-1",
     from_port=0,
@@ -42,7 +49,7 @@ egress_all = aws.ec2.SecurityGroupEgressArgs(
 security_group = aws.ec2.SecurityGroup(
     "medical-act-sg",
     description="Habilitar acceso SSH y HTTP/HTTPS",
-    ingress=[ingress_ssh, ingress_http, ingress_https],
+    ingress=[ingress_ssh, ingress_http, ingress_https, ingress_grpc],
     egress=[egress_all],
 )
 

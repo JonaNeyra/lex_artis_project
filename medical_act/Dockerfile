@@ -19,11 +19,8 @@ RUN python -m venv /py && \
         libc-dev \
         linux-headers \
         libffi-dev && \
-    apk add --update --no-cache --virtual .tmp-build-deps \
-        build-base postgresql-dev musl-dev && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     rm -Rf /tmp && \
-    apk del .tmp-build-deps && \
     adduser \
         --disabled-password \
         --no-create-home \

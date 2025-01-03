@@ -1,6 +1,6 @@
 #!/bin/bash
 yum update -y
-yum install -y docker nginx
+yum install -y docker nginx git
 systemctl start docker
 sudo usermod -aG docker ec2-user
 systemctl enable docker
@@ -37,4 +37,11 @@ http {
 EOT
 systemctl restart nginx
 
+cd /tmp
+git clone https://github.com/JonaNeyra/lex_artis_project.git
+sudo mkdir /var/opt medical_act
+sudo cp -R /tmp/lex_artis_project/medical_act /var/opt/medical_act
+sudo chown -R www-data:www-data /var/opt/medical_act
+
+docker build -t medical-act-image /var/opt/medical_act
 docker run -d -p 50051:50051 medical-act-image
