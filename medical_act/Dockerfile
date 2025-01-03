@@ -11,19 +11,17 @@ WORKDIR /medical_act
 EXPOSE 50051
 
 RUN python -m venv /py && \
-    /py/bin/pip install --upgrade pip && \
-    apk add --update --no-cache \
-        build-base \
-        g++ \
+    /py/bin/pip install --no-cache-dir --upgrade pip && \
+    apk add --no-cache --virtual .build-deps \
         gcc \
+        g++ \
         libc-dev \
         linux-headers \
         libffi-dev && \
-    apk add --update --no-cache --virtual .tmp-build-deps \
-        build-base postgresql-dev musl-dev && \
     /py/bin/pip install -r /tmp/requirements.txt && \
+    apk del .build-deps && \
+    rm -rf /var/cache/apk/* && \
     rm -Rf /tmp && \
-    apk del .tmp-build-deps && \
     adduser \
         --disabled-password \
         --no-create-home \
