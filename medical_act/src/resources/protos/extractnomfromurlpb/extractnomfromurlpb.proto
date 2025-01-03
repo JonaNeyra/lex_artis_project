@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package extractnom;
+
+option optimize_for = CODE_SIZE;
+
+message Article {
+  string name = 1;
+  string description = 2;
+}
+
+message LegalNorm {
+  string name = 1;
+  string description = 2;
+  string jurisdiction = 3;
+  repeated string procedure_types = 4;
+  repeated Article articles = 5;
+  string effective_date = 6;
+}
+
+message ExtractNomRequest {
+  string nom_name = 1;
+  string nom_url = 2;
+}
+
+message ExtractNomResponse {
+  LegalNorm legal_norm = 1;
+}
+
+service ExtractNomService{
+  rpc ExtractNom (ExtractNomRequest) returns (ExtractNomResponse){};
+}

@@ -1,0 +1,3 @@
+name: lex-artis-medical-act
+runtime: python
+description: "Infra para Medical Act utilizando EC2 y Nginx"

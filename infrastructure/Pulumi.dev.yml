@@ -1,0 +1,4 @@
+config:
+  aws:region: us-east-1
+  medical_act:instance_type: t2.micro
+  medical_act:ssh_key_name: medical-act-key
