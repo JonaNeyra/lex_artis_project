@@ -85,6 +85,10 @@ ec2_instance = aws.ec2.Instance(
     associate_public_ip_address=True,
     vpc_security_group_ids=[security_group.id],
     user_data=user_data,
+    root_block_device={
+        "volumeSize": 8,
+        "volumeType": "gp3",
+    },
     tags={
         "Name": "MedicalActServer"
     }
